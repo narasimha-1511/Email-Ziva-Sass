@@ -34,6 +34,16 @@ creating a proxy tunnel to expose the web hook for now
 
 #
 
+after creating a new account you get redirected to 
+the mail box , while getting redirected we want to 
+run the email sync , how do you do this ??
+
+using a new package for this ``` @vercel/functons  ```
+```
+there is a function called 'waitUntil' 
+in this package with this we extend the life time of that 
+particuklar asynchronus code
+```
 
 
 
