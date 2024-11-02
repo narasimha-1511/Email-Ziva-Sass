@@ -1,6 +1,7 @@
 // /api/initial-sync
 
 import { Account } from "@/lib/account";
+import { syncEmailsToDatabase } from "@/lib/sync-to-db";
 import { db } from "@/server/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -41,16 +42,16 @@ export const POST = async ( req: NextRequest) => {
 
     const { emails , deltaToken } = response;
 
-    // await db.account.update({
-    //     where: {
-    //         id: accountId
-    //     },
-    //     data:{
-    //         nextDeltaToken: deltaToken
-    //     }
-    // });
+    await db.account.update({
+        where: {
+            id: accountId
+        },
+        data:{
+            nextDeltaToken: deltaToken
+        }
+    });
 
-    // await syncEmailsToDatabase(emails);
+    await syncEmailsToDatabase(emails , accountId);
 
     console.log('Sync Completed' , deltaToken);
     return NextResponse.json(
