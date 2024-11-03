@@ -46,4 +46,16 @@ particuklar asynchronus code
 ```
 
 
+#
+
+Reacts useState is temporary gets removed when you reload the page ,
+so instead of this use package ```usehooks-ts```
+this stores the data in the local storage and very handy to get the data
+from here use get a replace ment of use State with -> useLocalStorage
+
+```
+ex: const [accoutnID , setAccountId] = useLocalStorage('accountId', '')
+```
+
+this stays persistent in the database
 

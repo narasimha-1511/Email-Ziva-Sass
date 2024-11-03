@@ -1,10 +1,17 @@
+import dynamic from 'next/dynamic'
 import React from 'react'
+
+const Mail = dynamic(() => {
+  return import('./mail')
+} , { ssr : false});  
 
 const page = () => {
   return (
-    <div className='bg-black h-screen flex justify-center items-center text-white'>
-        Mail Dash Board
-    </div>
+   <Mail
+   defaultCollaped={false}
+   navCollapsedSize={4}
+   defaultLayout={[20 , 32 , 48]}
+    />
   )
 }
 
