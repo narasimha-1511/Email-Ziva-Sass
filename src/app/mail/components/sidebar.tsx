@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLocalStorage } from 'usehooks-ts'
-import { Nav } from './nav'
+import { Nav } from '../nav'
 import { DraftingCompass, File, GitPullRequestDraft, InboxIcon, Send, SendIcon, StarIcon, Trash } from 'lucide-react'
 import { api } from '@/trpc/react'
 

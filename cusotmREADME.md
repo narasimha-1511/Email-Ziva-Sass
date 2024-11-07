@@ -59,3 +59,62 @@ ex: const [accoutnID , setAccountId] = useLocalStorage('accountId', '')
 
 this stays persistent in the database
 
+
+#
+
+using a new library --- > 
+
+```
+react-letter
+```
+
+```
+pnpm install react-letter
+```
+
+
+#
+
+one more crazy library ''k-bar''
+
+```
+pnpm install kbar
+```
+
+
+#
+
+using another crazy library for the reply box
+
+known as tiptap https://tiptap.dev/
+
+very easy to use and thsi is crazy
+
+```
+pnpm install @tiptap/react @tiptap/starter-kit @tiptap/extenstion-text
+```
+
+read the docs this is a crazy library
+
+
+#
+
+new library for the AI composer
+
+```
+pnpm install @ai-sdk/openai
+pnpm install ai
+```
+
+
+#
+
+new library for converting the body html of email to text
+
+```
+pnpm install turndown @types/turndown
+``` 
+
+we send the email in html format so we need to convert it to text
+like it will convert to the markdown format
+

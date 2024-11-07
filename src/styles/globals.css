@@ -72,6 +72,7 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%}
 }
+
 @layer base {
   * {
     @apply border-border;
@@ -79,4 +80,45 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.custom-scrollbar {
+  /* For Webkit browsers (Chrome, Safari) */
+  &::-webkit-scrollbar {
+    width: 8px;               /* width of the scrollbar */
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;  /* track color */
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #d4d4d4;     /* scrollbar color */
+    border-radius: 4px;      /* rounded corners */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #a3a3a3;     /* scrollbar color on hover */
+  }
+
+  /* For Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d4 transparent;
+}
+
+/* Optional: If you want the scrollbar to only appear when hovering */
+.custom-scrollbar:not(:hover) {
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+}
+
+.tiptap.ProseMirror{
+  outline: none;
+}
+
+.is-active {
+  background-color: #dadada;
+  border-radius: 4px;
+  padding: 0 2px;
 }

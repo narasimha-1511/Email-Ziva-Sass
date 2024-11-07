@@ -2,6 +2,7 @@ import { z } from "zod";
 import { createTRPCRouter, privateProcedure } from "../trpc";
 import { db } from "@/server/db";
 import { Prisma } from "@prisma/client";
+import { threadId } from "worker_threads";
 
 export const AuthorizeAccountAccess = async (accountId: string , userID : string) => {
     const account = await db.account.findFirst({
@@ -13,6 +14,7 @@ export const AuthorizeAccountAccess = async (accountId: string , userID : string
             id: true,
             emailAddress :true,
             accessToken: true,
+            name: true,
         }
     });
 
@@ -114,5 +116,68 @@ export const accountRouter = createTRPCRouter({
                 lastMessageDate: 'desc'
             }
         })
+    }),
+
+    getSuggestions: privateProcedure.input(z.object({
+        accountId: z.string(),
+    })).query(async ({ctx , input}) => {
+        const account = await AuthorizeAccountAccess(input.accountId , ctx.auth.userId);
+
+        return await ctx.db.emailAddress.findMany({
+            where:{
+                accountId: account.id,
+            },
+            select:{
+                address: true,
+                name: true
+            }
+        })
+    }),
+
+
+    getReplyDetails: privateProcedure.input(z.object({
+        accountId: z.string(),
+        threadId: z.string()
+    })).query(async ({ctx , input}) => {
+        const account = await AuthorizeAccountAccess(input.accountId , ctx.auth.userId);
+
+        const thread =  await ctx.db.thread.findFirst({
+            where: {
+                id: input.threadId
+            },
+            include:{
+                emails: {
+                    orderBy: {
+                        sentAt: 'asc',
+                    },
+                    select:{
+                        from: true,
+                        to: true,
+                        cc: true,
+                        subject: true,
+                        bcc: true,
+                        internetMessageId: true,
+                    }
+                }
+            }
+        });
+
+        if(!thread || thread.emails.length === 0){
+            throw new Error("Thread not found");
+        }
+
+        const lastExternalEmail = thread.emails.reverse().find(email => email.from.address !== account.emailAddress);
+        if(!lastExternalEmail){
+            throw new Error("No external email found");
+        }
+
+        return {
+            subject: lastExternalEmail.subject,
+            to: [lastExternalEmail.from , ...lastExternalEmail.to.filter(to => to.address !== account.emailAddress)],
+            cc: lastExternalEmail.cc.filter(cc => cc.address !== account.emailAddress),
+            bcc: lastExternalEmail.bcc.filter(bcc => bcc.address !== account.emailAddress),
+            from: {name: account.name , address: account.emailAddress },
+            id: lastExternalEmail.internetMessageId
+        };
     })
 })

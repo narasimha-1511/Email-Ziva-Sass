@@ -6,7 +6,6 @@ import { auth } from "@clerk/nextjs/server"
 import { NextRequest, NextResponse } from "next/server";
 import { waitUntil } from "@vercel/functions"
 import axios from "axios";
-import { error } from "console";
 
 export const GET = async (req : NextRequest) => {
     

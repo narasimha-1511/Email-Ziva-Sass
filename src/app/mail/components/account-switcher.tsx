@@ -2,7 +2,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { cn } from '@/lib/utils';
 import { api } from '@/trpc/react'
 import React from 'react'
-import { useLocalStorage, useWindowSize } from "usehooks-ts"
+import { useLocalStorage } from "usehooks-ts"
 import { Plus } from 'lucide-react';
 import { getAurinkoAuthUrl } from '@/lib/aurinko';
 
@@ -22,7 +22,7 @@ const AccountSwitcher = ({ isCollapsed }: Props) => {
     return (
     <Select defaultValue={accoutnID} onValueChange={setAccountId}>
         <SelectTrigger className={cn(
-            " flex items-center gap-w [&>span]:line-clamp-1 [&>span]:w-auto [&>span]:items-center [&>span]:truncate [&>span]:gap-1 [&>svg]:size-4 [&>svg]:shrink-0",
+            "flex items-center gap-w [&>span]:line-clamp-1 [&>span]:w-auto [&>span]:items-center [&>span]:truncate [&>span]:gap-1 [&>svg]:size-4 [&>svg]:shrink-0",
             isCollapsed &&
             "flex h-9 w-9 shrink-0 items-center justify-center p-0 [&>span]:w-auto [&>svg]:hidden"
         )}>

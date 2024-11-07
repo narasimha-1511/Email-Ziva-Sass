@@ -5,9 +5,10 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import AccountSwitcher from '@/app/mail/account-switcher';
-import Sidebar from '@/app/mail/sidebar';
+import AccountSwitcher from '@/app/mail/components/account-switcher';
+import Sidebar from '@/app/mail/components/sidebar';
 import ThreadList from './thread-list';
+import ThreadDisplay from './thread-display';
 
 type Props = {
     defaultLayout: number[] | undefined
@@ -90,7 +91,7 @@ const Mail = ({ defaultLayout = [20 , 32 , 48] , navCollapsedSize , defaultColla
 
             <ResizablePanel defaultSize={defaultLayout[2]} minSize={30}>
                 {/* Thread */}
-                This is where the Thread is built
+                <ThreadDisplay />
             </ResizablePanel>
         </ResizablePanelGroup>
     </TooltipProvider>
