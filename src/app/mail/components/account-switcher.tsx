@@ -52,7 +52,7 @@ const AccountSwitcher = ({ isCollapsed }: Props) => {
                     if(authUrl)
                     window.location.href = authUrl;
                 }} 
-                 className='flex relative hover:bg-gray-50 w-full cursor-pointer items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-accent'>
+                 className='flex relative hover:bg-gray-50 dark:hover:bg-gray-800 w-full cursor-pointer items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-accent'>
                     <Plus className="size-4 mr-1" />
                     Add Account
                 </div>
