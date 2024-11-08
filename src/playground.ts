@@ -1,16 +1,18 @@
-import { db } from "./server/db";
+// import { db } from "./server/db";
 
-async function main() {
-    await db.user.create({
-        data: {
-            emailAddress:"demo@gmail.com",
-            firstName: "demo",
-            lastName: "nari",
-            imageUrl: ""
-        }
-    });
-    
-    console.log('done');
-}
+// async function main() {
+//     await db.user.create({
+//         data: {
+//             emailAddress:"demo@gmail.com",
+//             firstName: "demo",
+//             lastName: "nari",
+//             imageUrl: ""
+//         }
+//     });
 
-main().catch(console.error);
+//     console.log('done');
+// }
+
+// main().catch(console.error);
+
+// const account = new Account(localStorage.getItem("account") ?? "");

@@ -8,6 +8,7 @@ import { TRPCReactProvider } from "@/trpc/react";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/theme-provider";
 import Kbar from "@/components/kbar";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -31,6 +32,7 @@ export default function RootLayout({
           <TRPCReactProvider>
             <Kbar>
               {children}
+              <Toaster />
             </Kbar>
             </TRPCReactProvider>
           </ThemeProvider>
