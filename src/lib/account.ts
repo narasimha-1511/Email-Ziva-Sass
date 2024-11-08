@@ -131,7 +131,6 @@ export class Account {
     replyTo,
     attachments,
   }: {
-    threadId?: string;
     from: EmailAddress;
     subject: string;
     body: string;
@@ -142,6 +141,7 @@ export class Account {
     bcc?: EmailAddress[];
     replyTo?: EmailAddress;
     attachments?: EmailAttachment[];
+    threadId?: string;
   }) {
     try {
       const response = await axios.post<EmailMessage>(
@@ -157,7 +157,6 @@ export class Account {
           cc,
           bcc,
           replyTo: [replyTo],
-          attachments,
         },
         {
           params: {

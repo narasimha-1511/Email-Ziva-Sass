@@ -48,23 +48,18 @@ const ComposeButton = () => {
         subject: subject,
         body: value,
         to: toValues.map((to) => ({
-          name: to.label || "",
+          name: to.value || "",
           address: to.value,
+        })),
+        cc: ccValues.map((cc) => ({
+          name: cc.value || "",
+          address: cc.value,
         })),
         replyTo: {
           name: account?.name ?? "",
           address: account?.emailAddress ?? "",
         },
-        cc: ccValues.map((cc) => ({
-          name: cc.value || "",
-          address: cc.value,
-        })),
-        bcc: bccValues.map((bcc) => ({
-          name: bcc.value || "",
-          address: bcc.value,
-        })),
         threadId: undefined,
-        attachments: undefined,
       },
       {
         onSuccess: () => {
@@ -93,12 +88,12 @@ const ComposeButton = () => {
             subject={subject}
             setSubject={setSubject}
             toValues={toValues}
-            setToValues={setToValues}
             ccValues={ccValues}
+            setToValues={setToValues}
             setCcValues={setCcValues}
             isSending={isSending}
             defaultToolBarExpanded={true}
-            to={[]}
+            to={toValues.map((to) => to.value)}
             handleSend={handleSend}
           />
         </DrawerHeader>
