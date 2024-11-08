@@ -48,7 +48,7 @@ const ComposeButton = () => {
         subject: subject,
         body: value,
         to: toValues.map((to) => ({
-          name: to.label,
+          name: to.label || "",
           address: to.value,
         })),
         replyTo: {
@@ -56,11 +56,11 @@ const ComposeButton = () => {
           address: account?.emailAddress ?? "",
         },
         cc: ccValues.map((cc) => ({
-          name: cc.label,
+          name: cc.value || "",
           address: cc.value,
         })),
         bcc: bccValues.map((bcc) => ({
-          name: bcc.label,
+          name: bcc.value || "",
           address: bcc.value,
         })),
         threadId: undefined,
