@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Sparkles, Star, Mail, Zap, Clock, CheckCircle } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
-const userTypes = ["creators", "founders", "managers"]
+const userTypes = ["  Creators", "  Founders", "  Managers"]
 
 export default function Component() {
   const [scrolled, setScrolled] = useState(false)
@@ -47,8 +47,8 @@ export default function Component() {
     }
 
     const newText = isDeleting
-      ? fullWord.substring(0, text.length - 1)
-      : fullWord.substring(0, text.length + 1)
+      ? fullWord?.substring(0, text.length - 1) || ""
+      : fullWord?.substring(0, text.length + 1) || ""
     
     setText(newText)
     setDelta(isDeleting ? 100 : 200)
@@ -93,10 +93,10 @@ export default function Component() {
                 transition={{ duration: 0.6 }}
                 className="text-center lg:text-left"
               >
-                <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-                  <span className="text-purple-400">Smarter</span> email for{" "}
+                <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                  <span className="text-purple-400 tracking-tighter">‘‘Smarter’’</span> email  for{" "}
                   <span className="relative">
-                    <span className="text-purple-400 inline-block min-w-[200px]">
+                    <span className="text-purple-400 tracking-tighter whitespace-nowrap  inline-block min-w-[200px]">
                       {text}
                       <AnimatePresence mode="wait">
                         <motion.span

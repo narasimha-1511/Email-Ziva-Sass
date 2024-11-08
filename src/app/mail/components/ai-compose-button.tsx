@@ -44,6 +44,7 @@ const AIComposeButton = ({isComposing , onGenerate}: Props) => {
                 contextOfEmail += content;
             }
         }
+        
         contextOfEmail += `My name is ${account?.name} and my email is ${account?.emailAddress}`;
 
         const { output } = await generateEmail(contextOfEmail, prompt)

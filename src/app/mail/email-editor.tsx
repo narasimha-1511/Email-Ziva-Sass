@@ -6,10 +6,11 @@ import { Text } from "@tiptap/extension-text"
 import EditorMenuBar from './editor-menubar'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
-import { Plus } from 'lucide-react'
 import TagInput from './components/tag-input'
 import { Input } from '@/components/ui/input'
 import AIComposeButton from './components/ai-compose-button'
+import { generateEmailStream } from './server-actions/ai-generate-action'
+import { readStreamableValue } from 'ai/rsc'
 
 type Props = {
     subject: string
@@ -33,13 +34,33 @@ const EmailEditor = ({ subject, setSubject, toValues, setToValues, ccValues, set
 
     const [value , setValue] = React.useState<string>('')
     const [expanded , setExpanded] = React.useState<boolean>(defaultToolBarExpanded || false)
+    const [token , setToken] = React.useState<string>('')
+
+    const aiGenerate = async () => {
+
+        const { output } = await generateEmailStream(value);
+
+        for await (const chunk of readStreamableValue(output)) {
+            if(chunk){
+                setToken(chunk);
+            }
+        }
+    }
+
+    React.useEffect(() => {
+        if(token){
+            editor?.commands.insertContent(token);
+        }
+    }, [token])
 
     const CustomText = Text.extend({
         addKeyboardShortcuts() {
             return{
                 'Control-j': () => {
-                    console.log('Control-j pressed');
-                    // Add your custom logic here
+                    // console.log('Control-j pressed');
+                    
+                    aiGenerate();
+
                     return true; // Prevent default behavior
                 },
                 'Meta-j': () => {
@@ -75,7 +96,7 @@ const EmailEditor = ({ subject, setSubject, toValues, setToValues, ccValues, set
             <EditorMenuBar editor={editor} />
         </div>
 
-        <div className='p-4 pb-0 space-y-1'>
+        <div className='p-4 pb-0 space-y-2'>
             {expanded && (
                 <>
                    <TagInput 
@@ -112,8 +133,7 @@ const EmailEditor = ({ subject, setSubject, toValues, setToValues, ccValues, set
         </div>
         
         <div className='prose w-full px-4 '>
-            <EditorContent 
-            className='dark:text-gray-100'
+            <EditorContent
             editor={editor}
             value={value}/>
         </div>
