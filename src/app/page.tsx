@@ -3,12 +3,30 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Star, Mail, Zap, Clock, CheckCircle } from "lucide-react";
+import {
+  Sparkles,
+  Star,
+  Mail,
+  Zap,
+  Clock,
+  CheckCircle,
+  ArrowLeftRight,
+  ArrowRight,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import { useRouter } from "next/navigation";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
+import { PinRightIcon } from "@radix-ui/react-icons";
 const userTypes = ["Creators", "Founders", "Managers"];
 
 export default function Component() {
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [currentTypeIndex, setCurrentTypeIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -80,24 +98,41 @@ export default function Component() {
       `}</style>
       <header
         className={`fixed left-0 right-0 top-0 z-50 transition-colors duration-300 ${
-          scrolled ? "bg-black/90 backdrop-blur-sm" : "bg-transparent"
+          scrolled ? "bg-black/85 backdrop-blur-sm" : "bg-transparent"
         }`}
       >
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-2">
           <nav className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img src="./ziva-logo.svg" alt="Ziva Logo" className="size-16" />
             </div>
             <div className="flex items-center gap-4">
-              <Button
-                variant="ghost"
-                className="text-white hover:text-purple-400"
-              >
-                Sign In
-              </Button>
-              <Button className="bg-white text-black hover:bg-purple-100">
-                Get Started
-              </Button>
+              <SignedOut>
+                <SignInButton>
+                  <Button
+                    className="text-white hover:text-purple-400"
+                    variant="ghost"
+                  >
+                    Sign In
+                  </Button>
+                </SignInButton>
+                <SignUpButton>
+                  <Button>Get Started</Button>
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
+                <>
+                  <UserButton />
+                  <Button
+                    variant="outline"
+                    className="text-white hover:text-purple-400"
+                    onClick={() => router.push("/mail")}
+                  >
+                    <Mail className="size-8" />{" "}
+                    <ArrowRight className="size-8" />
+                  </Button>
+                </>
+              </SignedIn>
             </div>
           </nav>
         </div>
@@ -297,13 +332,14 @@ export default function Component() {
         </section>
       </main>
 
-      <footer className="border-t border-gray-800 py-8">
+      <footer className="border-t border-gray-800">
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <div className="flex items-center gap-2">
               <img
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-LevQ7v88ZU2VGzTKqiKC85blZGjdo0.png"
                 alt="Ziva Logo"
+                style={{ objectFit: "contain" }}
                 className="size-20"
               />
             </div>
