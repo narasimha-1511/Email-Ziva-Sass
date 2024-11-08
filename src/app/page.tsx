@@ -124,7 +124,6 @@ export default function Component() {
                 <>
                   <UserButton />
                   <Button
-                    variant="outline"
                     className="text-white hover:text-purple-400"
                     onClick={() => router.push("/mail")}
                   >
