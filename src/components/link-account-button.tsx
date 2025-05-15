@@ -8,7 +8,7 @@ const LinkAccountButton = () => {
   return (
     <Button
     onClick={async () => {
-        const authUrl = await getAurinkoAuthUrl('Google')
+         const authUrl = await getAurinkoAuthUrl('Google')
         
         if(authUrl)
         window.location.href=authUrl;
